@@ -1,0 +1,20 @@
+import json
+with open('followers.json', 'r') as followers_file:
+    followers = json.load(followers_file)
+
+with open('following.json', 'r') as following_file:
+    following = json.load(following_file)
+
+# Extract the lists of followers and following
+followers_list = followers['followers']
+following_list = following['following']
+
+# Extract the usernames from the lists
+followers_usernames = [follower['string_list_data'][0]['value'] for follower in followers_list]
+following_usernames = [following['string_list_data'][0]['value'] for following in following_list]
+
+# Find the people you're following who are not following you back
+not_following_back = [username for username in following_usernames if username not in followers_usernames]
+
+# Print the list of people who aren't following you back
+print(not_following_back)
